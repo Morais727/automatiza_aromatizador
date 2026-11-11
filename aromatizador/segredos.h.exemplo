@@ -1,0 +1,6 @@
+// Copie este arquivo para segredos.h (na mesma pasta) e preencha.
+// segredos.h esta no .gitignore e nunca vai para o GitHub.
+#pragma once
+
+const char* WIFI_NOME  = "SUA_REDE_WIFI";
+const char* WIFI_SENHA = "SUA_SENHA_WIFI";

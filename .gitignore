@@ -11,3 +11,6 @@ build/
 
 # Arquivos de origem das imagens (não versionar)
 imagens/*.zip
+
+# Credenciais do Wi-Fi (nunca versionar)
+aromatizador/segredos.h

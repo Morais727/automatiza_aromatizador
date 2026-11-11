@@ -17,10 +17,10 @@
 #include <LittleFS.h>
 #include <time.h>
 
-// ===== Configure sua rede =====
-
-const char* WIFI_NOME  = "ZETTA";
-const char* WIFI_SENHA = "zetta@ufla";
+// ===== Rede Wi-Fi =====
+// Nome e senha ficam em segredos.h (fora do git). Para criar:
+// copie segredos.h.exemplo para segredos.h e preencha.
+#include "segredos.h"
 
 // Fuso de Brasilia (UTC-3, sem horario de verao)
 const char* FUSO = "<-03>3";
