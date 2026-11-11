@@ -3,7 +3,7 @@
 Aromatizador automático baseado em **ESP8266 (ESP-01)** com ponte H **L298N**,
 controlado por **interface web**. A eletrônica adapta um **aromatizador comercial
 decorativo**, acionando seu motor para borrifar a fragrância em horários
-programados. Projeto aberto — contribuições são bem-vindas.
+programados. Projeto aberto a contribuições.
 
 ## Como funciona
 
@@ -16,7 +16,7 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 ### Visão geral do protótipo
 ![Visão geral](imagens/visao-geral.jpg)
 
-### Eletrônica — componentes principais
+### Eletrônica: componentes principais
 ![Eletrônica](imagens/eletronica-componentes.jpg)
 
 ## Funcionalidades
@@ -42,8 +42,7 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 | 5 | **Refil aerossol / fragrância** | 1 | Consumível aromatizante |
 | 6 | **Protoboard (breadboard)** | 1 | Montagem sem solda |
 | 7 | **Jumpers / fios** | vários | Ligações entre os módulos |
-| 8 | **Capacitores 220 µF / 35 V** | 2 | Filtragem / estabilização da alimentação |
-| 9 | **Fonte USB 5 V (carregador) + cabo** | 1 | Alimentação do conjunto |
+| 8 | **Fonte USB 5 V (carregador) + cabo** | 1 | Alimentação do conjunto |
 
 > As quantidades e modelos podem variar conforme a sua montagem. A regulação de
 > tensão para o ESP (3,3 V) é feita pelo adaptador RoboCore, que aceita 5 V.
@@ -64,7 +63,7 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 </table>
 
 > **ESP-01, protoboard e jumpers**: fotos de modelos equivalentes com licença livre
-> (Wikimedia Commons — ver [Créditos](#créditos-das-imagens)). **Adaptador RoboCore,
+> (Wikimedia Commons; ver [Créditos](#créditos-das-imagens)). **Adaptador RoboCore,
 > L298N e aromatizador**: imagens de fabricante/loja, de uso ilustrativo.
 
 ## Ligações (pinagem)
@@ -95,7 +94,7 @@ Saídas `OUT1`/`OUT2` da L298N vão ao motor do aromatizador.
 
 Antes de compilar, ajuste as credenciais de Wi-Fi (`WIFI_NOME` / `WIFI_SENHA`)
 no início do sketch. Os valores versionados são apenas placeholders
-(`SUA_REDE_WIFI` / `SUA_SENHA_WIFI`) — **não** faça commit da sua senha real.
+(`SUA_REDE_WIFI` / `SUA_SENHA_WIFI`). **Não** faça commit da sua senha real.
 
 ## Contribuindo
 
@@ -122,6 +121,6 @@ As fotos de montagem, visão geral e eletrônica são de autoria do projeto.
 
 ## Licença
 
-Código distribuído sob a licença **MIT** — veja [`LICENSE`](LICENSE).
+Código distribuído sob a licença **MIT**; veja [`LICENSE`](LICENSE).
 © 2026 Marcos Morais. (As imagens de terceiros mantêm suas próprias licenças,
 conforme a tabela acima.)

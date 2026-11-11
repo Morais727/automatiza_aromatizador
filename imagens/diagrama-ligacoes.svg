@@ -9,7 +9,7 @@
   </defs>
 
   <rect x="0" y="0" width="1020" height="470" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="510" y="36" text-anchor="middle" font-size="26" font-weight="bold" fill="#0f172a">Como funciona — diagrama de ligações</text>
+  <text x="510" y="36" text-anchor="middle" font-size="26" font-weight="bold" fill="#0f172a">Como funciona: diagrama de ligações</text>
 
   <!-- Entradas Wi-Fi (topo) -->
   <g>
