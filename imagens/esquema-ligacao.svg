@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="700" viewBox="0 0 1140 700" font-family="DejaVu Sans, Arial, sans-serif">
+<rect x="0" y="0" width="1140" height="700" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+<text x="570.0" y="38" text-anchor="middle" font-size="26" font-weight="bold" fill="#0f172a">Esquema de ligação (wiring)</text>
+<path d="M 170,70 L 690,70" fill="none" stroke="#d62828" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="120" y="76" font-size="15" fill="#d62828" font-weight="bold" text-anchor="start">+5 V</text>
+<path d="M 120,628 L 1000,628" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="60" y="634" font-size="15" fill="#1f2937" font-weight="bold" text-anchor="start">GND</text>
+<rect x="40" y="112" width="150" height="120" rx="14" fill="#fff7ed" stroke="#e07b00" stroke-width="3"/>
+<text x="115" y="165" font-size="16" fill="#9a4d00" font-weight="bold" text-anchor="middle">Fonte</text>
+<text x="115" y="190" font-size="16" fill="#9a4d00" font-weight="bold" text-anchor="middle">USB 5 V</text>
+<rect x="300" y="96" width="250" height="260" rx="14" fill="#eff6ff" stroke="#1d6fd6" stroke-width="3"/>
+<text x="425" y="128" font-size="17" fill="#0a4da0" font-weight="bold" text-anchor="middle">ESP-01 + RoboCore</text>
+<text x="425" y="150" font-size="13" fill="#475569" font-weight="normal" text-anchor="middle">(Wi-Fi • 3,3 V)</text>
+<rect x="660" y="96" width="250" height="330" rx="14" fill="#fef2f2" stroke="#d62828" stroke-width="3"/>
+<text x="785" y="128" font-size="17" fill="#a51414" font-weight="bold" text-anchor="middle">Ponte H L298N</text>
+<circle cx="1045" cy="210" r="46" fill="#f0fdf4" stroke="#2a9d4a" stroke-width="3"/>
+<text x="1045" y="205" font-size="26" fill="#07702f" font-weight="bold" text-anchor="middle">M</text>
+<text x="1045" y="232" font-size="12" fill="#475569" font-weight="normal" text-anchor="middle">motor</text>
+<rect x="345" y="470" width="180" height="74" rx="14" fill="#faf5ff" stroke="#8c28a0" stroke-width="3"/>
+<text x="435" y="500" font-size="15" fill="#6b1f7d" font-weight="bold" text-anchor="middle">Botão (Key)</text>
+<text x="435" y="522" font-size="12" fill="#475569" font-weight="normal" text-anchor="middle">no aromatizador</text>
+<circle cx="190" cy="150" r="6" fill="#d62828"/>
+<text x="205" y="155" font-size="13" fill="#d62828" font-weight="bold" text-anchor="start">+5V</text>
+<circle cx="190" cy="200" r="6" fill="#1f2937"/>
+<text x="205" y="205" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="start">GND</text>
+<circle cx="300" cy="150" r="6" fill="#d62828"/>
+<text x="312" y="146" font-size="12" fill="#d62828" font-weight="bold" text-anchor="start">5V</text>
+<circle cx="300" cy="300" r="6" fill="#1f2937"/>
+<text x="312" y="296" font-size="12" fill="#1f2937" font-weight="bold" text-anchor="start">GND</text>
+<circle cx="550" cy="160" r="6" fill="#2a9d4a"/>
+<text x="540" y="156" font-size="13" fill="#2a9d4a" font-weight="bold" text-anchor="end">GPIO0</text>
+<circle cx="550" cy="215" r="6" fill="#1d6fd6"/>
+<text x="540" y="211" font-size="13" fill="#1d6fd6" font-weight="bold" text-anchor="end">GPIO2</text>
+<circle cx="550" cy="270" r="6" fill="#8c28a0"/>
+<text x="540" y="266" font-size="13" fill="#8c28a0" font-weight="bold" text-anchor="end">GPIO3/RX</text>
+<circle cx="660" cy="150" r="6" fill="#d62828"/>
+<text x="672" y="146" font-size="12" fill="#d62828" font-weight="bold" text-anchor="start">+5V</text>
+<circle cx="660" cy="205" r="6" fill="#e07b00"/>
+<text x="672" y="201" font-size="12" fill="#e07b00" font-weight="bold" text-anchor="start">ENA</text>
+<circle cx="660" cy="260" r="6" fill="#2a9d4a"/>
+<text x="672" y="256" font-size="12" fill="#2a9d4a" font-weight="bold" text-anchor="start">IN1</text>
+<circle cx="660" cy="315" r="6" fill="#1d6fd6"/>
+<text x="672" y="311" font-size="12" fill="#1d6fd6" font-weight="bold" text-anchor="start">IN2</text>
+<circle cx="660" cy="385" r="6" fill="#1f2937"/>
+<text x="672" y="381" font-size="12" fill="#1f2937" font-weight="bold" text-anchor="start">GND</text>
+<circle cx="910" cy="180" r="6" fill="#d62828"/>
+<text x="898" y="176" font-size="12" fill="#d62828" font-weight="bold" text-anchor="end">OUT1</text>
+<circle cx="910" cy="270" r="6" fill="#1f2937"/>
+<text x="898" y="266" font-size="12" fill="#1f2937" font-weight="bold" text-anchor="end">OUT2</text>
+<circle cx="999" cy="196" r="6" fill="#d62828"/>
+<circle cx="999" cy="236" r="6" fill="#1f2937"/>
+<path d="M 190,150 L 190,70" fill="none" stroke="#d62828" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 300,70 L 300,150" fill="none" stroke="#d62828" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 660,70 L 660,150" fill="none" stroke="#d62828" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 635,70 L 635,205 L 660,205" fill="none" stroke="#e07b00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 190,200 L 190,628" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 300,300 L 300,628" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 660,385 L 660,628" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 550,160 L 610,160 L 610,260 L 660,260" fill="none" stroke="#2a9d4a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 550,215 L 590,215 L 590,315 L 660,315" fill="none" stroke="#1d6fd6" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 550,270 L 575,270 L 575,450 L 420,450 L 420,470" fill="none" stroke="#8c28a0" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="420" cy="470" r="6" fill="#8c28a0"/>
+<circle cx="455" cy="470" r="6" fill="#1f2937"/>
+<path d="M 455,470 L 455,628" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 910,180 L 999,196" fill="none" stroke="#d62828" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 910,270 L 950,270 L 950,236 L 999,236" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="620" y="585" font-size="13" fill="#475569" font-weight="italic" text-anchor="start">Sinais 3,3 V do ESP • ENA em +5 V habilita a saída • GND comum a todos</text>
+</svg>

@@ -58,6 +58,11 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 
 Saídas `OUT1`/`OUT2` da L298N vão ao motor do aromatizador.
 
+![Esquema de ligação (wiring)](imagens/esquema-ligacao.svg)
+
+> Alimentação 5 V (USB) em um trilho comum; `GND` comum a todos os módulos;
+> `ENA` em +5 V habilita a saída da ponte H.
+
 ## Compilação (IDE Arduino)
 
 - Placa: **Generic ESP8266 Module**
