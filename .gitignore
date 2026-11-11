@@ -8,3 +8,6 @@ build/
 .vscode/
 .DS_Store
 *~
+
+# Arquivos de origem das imagens (não versionar)
+imagens/*.zip

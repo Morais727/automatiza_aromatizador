@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="470" viewBox="0 0 1020 470" font-family="DejaVu Sans, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e07b00"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1020" height="470" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="510" y="36" text-anchor="middle" font-size="26" font-weight="bold" fill="#0f172a">Como funciona — diagrama de ligações</text>
+
+  <!-- Entradas Wi-Fi (topo) -->
+  <g>
+    <rect x="210" y="66" width="180" height="62" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="3"/>
+    <text x="300" y="92" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">Celular / PC</text>
+    <text x="300" y="113" text-anchor="middle" font-size="14" fill="#475569">navegador web</text>
+
+    <rect x="410" y="66" width="150" height="62" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="3"/>
+    <text x="485" y="92" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">Internet</text>
+    <text x="485" y="113" text-anchor="middle" font-size="14" fill="#475569">NTP (data/hora)</text>
+  </g>
+
+  <!-- Linha principal -->
+  <!-- USB -->
+  <rect x="28" y="208" width="150" height="94" rx="14" fill="#fff7ed" stroke="#e07b00" stroke-width="3"/>
+  <text x="103" y="248" text-anchor="middle" font-size="17" font-weight="bold" fill="#9a4d00">Fonte</text>
+  <text x="103" y="272" text-anchor="middle" font-size="17" font-weight="bold" fill="#9a4d00">USB 5 V</text>
+
+  <!-- ESP -->
+  <rect x="248" y="178" width="252" height="152" rx="14" fill="#eff6ff" stroke="#0a6edb" stroke-width="3"/>
+  <text x="374" y="214" text-anchor="middle" font-size="18" font-weight="bold" fill="#0a4da0">ESP-01 (ESP8266)</text>
+  <text x="374" y="240" text-anchor="middle" font-size="15" fill="#1f2937">+ adaptador RoboCore</text>
+  <text x="374" y="266" text-anchor="middle" font-size="15" fill="#1f2937">Wi-Fi • servidor web</text>
+  <text x="374" y="292" text-anchor="middle" font-size="14" fill="#475569">agenda, feriados,</text>
+  <text x="374" y="312" text-anchor="middle" font-size="14" fill="#475569">contadores, histórico</text>
+
+  <!-- L298N -->
+  <rect x="560" y="178" width="200" height="152" rx="14" fill="#fef2f2" stroke="#c81e1e" stroke-width="3"/>
+  <text x="660" y="246" text-anchor="middle" font-size="18" font-weight="bold" fill="#a51414">Ponte H</text>
+  <text x="660" y="272" text-anchor="middle" font-size="18" font-weight="bold" fill="#a51414">L298N</text>
+  <text x="660" y="298" text-anchor="middle" font-size="14" fill="#475569">driver de motor</text>
+
+  <!-- Motor -->
+  <rect x="820" y="178" width="178" height="152" rx="14" fill="#f0fdf4" stroke="#0a9640" stroke-width="3"/>
+  <text x="909" y="232" text-anchor="middle" font-size="17" font-weight="bold" fill="#07702f">Motor DC</text>
+  <text x="909" y="256" text-anchor="middle" font-size="14" fill="#1f2937">no aromatizador</text>
+  <text x="909" y="286" text-anchor="middle" font-size="14" font-weight="bold" fill="#07702f">borrifa a</text>
+  <text x="909" y="306" text-anchor="middle" font-size="14" font-weight="bold" fill="#07702f">fragrância</text>
+
+  <!-- Botão -->
+  <rect x="248" y="380" width="252" height="60" rx="12" fill="#faf5ff" stroke="#8c28a0" stroke-width="3"/>
+  <text x="374" y="416" text-anchor="middle" font-size="16" font-weight="bold" fill="#6b1f7d">Botão físico (GPIO3 / RX)</text>
+
+  <!-- Setas de sinal -->
+  <line x1="178" y1="255" x2="246" y2="255" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="500" y1="255" x2="558" y2="255" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="760" y1="255" x2="818" y2="255" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="530" y="243" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">IO0→IN1</text>
+  <text x="530" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">IO2→IN2</text>
+  <text x="790" y="243" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">OUT1/OUT2</text>
+
+  <!-- Wi-Fi e NTP para ESP -->
+  <line x1="300" y1="128" x2="330" y2="176" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="485" y1="128" x2="430" y2="176" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="332" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">Wi-Fi</text>
+
+  <!-- Botão para ESP -->
+  <line x1="374" y1="380" x2="374" y2="332" stroke="#8c28a0" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="432" y="362" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b1f7d">aciona</text>
+
+  <!-- Alimentacao (tracejado) para L298N -->
+  <polyline points="103,302 103,356 660,356 660,332" fill="none" stroke="#e07b00" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#arrowp)"/>
+  <text x="300" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a4d00">alimentação 5 V</text>
+</svg>

@@ -1,7 +1,23 @@
 # automatiza_aromatizador
 
 Aromatizador automático baseado em **ESP8266 (ESP-01)** com ponte H **L298N**,
-controlado por **interface web**. Projeto aberto — contribuições são bem-vindas.
+controlado por **interface web**. A eletrônica adapta um **aromatizador comercial
+decorativo**, acionando seu motor para borrifar a fragrância em horários
+programados. Projeto aberto — contribuições são bem-vindas.
+
+## Como funciona
+
+Um celular ou PC acessa a interface web servida pelo próprio ESP-01, que mantém
+data/hora pela internet (NTP), decide quando borrifar (respeitando horários,
+dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
+
+![Diagrama de ligações](imagens/diagrama-ligacoes.svg)
+
+### Visão geral do protótipo
+![Visão geral](imagens/visao-geral.jpg)
+
+### Eletrônica — componentes principais
+![Eletrônica](imagens/eletronica-componentes.jpg)
 
 ## Funcionalidades
 
@@ -15,11 +31,32 @@ controlado por **interface web**. Projeto aberto — contribuições são bem-vi
 - **Histórico diário** com download em CSV
 - Acesso via `http://aromatizador.local` (ou pelo IP no roteador)
 
-## Hardware
+## Lista de componentes (BOM)
 
-- ESP-01 + adaptador RoboCore
-- Ponte H L298N
-- Ligações: `IO0 -> IN1` | `IO2 -> IN2` | `RXH (GPIO3) -> botão Key` (outro fio no GND)
+| # | Componente | Qtd | Função |
+|---|------------|-----|--------|
+| 1 | **ESP-01 (ESP8266)** | 1 | Cérebro do sistema: Wi-Fi, servidor web, agenda, feriados, contadores |
+| 2 | **Adaptador RoboCore para ESP-01** | 1 | Alimenta o ESP (regula 3,3 V), facilita gravação e as conexões |
+| 3 | **Ponte H L298N** | 1 | Driver que aciona o motor do aromatizador |
+| 4 | **Aromatizador comercial decorativo (com motor DC)** | 1 | Mecanismo que pressiona o refil e borrifa |
+| 5 | **Refil aerossol / fragrância** | 1 | Consumível aromatizante |
+| 6 | **Protoboard (breadboard)** | 1 | Montagem sem solda |
+| 7 | **Jumpers / fios** | vários | Ligações entre os módulos |
+| 8 | **Capacitores 220 µF / 35 V** | 2 | Filtragem / estabilização da alimentação |
+| 9 | **Fonte USB 5 V (carregador) + cabo** | 1 | Alimentação do conjunto |
+
+> As quantidades e modelos podem variar conforme a sua montagem. A regulação de
+> tensão para o ESP (3,3 V) é feita pelo adaptador RoboCore, que aceita 5 V.
+
+## Ligações (pinagem)
+
+| ESP-01 | Destino |
+|--------|---------|
+| `IO0` | `IN1` da L298N |
+| `IO2` | `IN2` da L298N |
+| `RXH (GPIO3)` | Botão *Key* (outro fio no GND) |
+
+Saídas `OUT1`/`OUT2` da L298N vão ao motor do aromatizador.
 
 ## Compilação (IDE Arduino)
 
@@ -33,15 +70,10 @@ Antes de compilar, ajuste as credenciais de Wi-Fi (`WIFI_NOME` / `WIFI_SENHA`)
 no início do sketch. Os valores versionados são apenas placeholders
 (`SUA_REDE_WIFI` / `SUA_SENHA_WIFI`) — **não** faça commit da sua senha real.
 
-## Imagens
-
-Fotos e demonstrações ficam na pasta [`imagens/`](imagens/).
-
 ## Contribuindo
 
 Sugestões e melhorias (especialmente na interface web) são bem-vindas via
-_issues_ e _pull requests_. Para discutir mudanças maiores, abra uma _issue_
-primeiro.
+_issues_ e _pull requests_. Veja o [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Licença
 
