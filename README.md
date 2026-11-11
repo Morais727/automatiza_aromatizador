@@ -90,11 +90,29 @@ Saídas `OUT1`/`OUT2` da L298N vão ao motor do aromatizador.
 - Flash Size: **1MB (FS:64KB OTA:~470KB)**
 - Sketch: [`aromatizador/aromatizador.ino`](aromatizador/aromatizador.ino)
 
+Para preparar a IDE Arduino e gravar o ESP8266 (instalação do core, seleção de
+placa e gravação), veja o tutorial da RoboCore:
+[Programando o ESP8266 pela Arduino IDE](https://www.robocore.net/tutoriais/programando-o-esp8266-pela-arduino-ide).
+
 ## Configuração
 
 Antes de compilar, ajuste as credenciais de Wi-Fi (`WIFI_NOME` / `WIFI_SENHA`)
 no início do sketch. Os valores versionados são apenas placeholders
 (`SUA_REDE_WIFI` / `SUA_SENHA_WIFI`). **Não** faça commit da sua senha real.
+
+## Próximos passos
+
+Nas próximas versões, a ponte H L298N (grande) será substituída por um **driver
+de motor menor** (ponte H compacta, como a da imagem abaixo). Com a eletrônica
+reduzida, a ideia é **embutir todo o conjunto dentro do próprio aromatizador**,
+deixando o produto final compacto e sem fios aparentes.
+
+<table>
+  <tr>
+    <td align="center" width="40%"><img src="imagens/componentes/mini_ponte_H.png" width="170"/><br/><b>Mini ponte H (driver compacto)</b></td>
+    <td>Substituirá a L298N, ocupando bem menos espaço e permitindo a montagem interna no aromatizador.</td>
+  </tr>
+</table>
 
 ## Contribuindo
 
@@ -112,9 +130,10 @@ e mantém a licença de seus autores (não são cobertas pela licença MIT deste
 | `breadboard.jpg` | oomlout | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:400_points_breadboard.jpg) |
 | `jumpers.jpg` | oomlout | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:A_few_Jumper_Wires.jpg) |
 
-As imagens `adaptador-robocore.png`, `l298n.png` e `aromatizador.png` são **fotos de
-fabricante/loja**, usadas aqui de forma **ilustrativa**; os direitos pertencem aos
-respectivos titulares (não são do projeto nem da licença MIT).
+As imagens `adaptador-robocore.png`, `l298n.png`, `aromatizador.png` e
+`mini_ponte_H.png` são **fotos de fabricante/loja**, usadas aqui de forma
+**ilustrativa**; os direitos pertencem aos respectivos titulares (não são do
+projeto nem da licença MIT).
 
 As fotos de montagem, visão geral e eletrônica são de autoria do projeto.
 © 2026 Marcos Morais.
