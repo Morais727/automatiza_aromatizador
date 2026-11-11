@@ -27,8 +27,8 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
   emendas, férias)
 - **Data e hora pela internet** (NTP, fuso de Brasília)
 - **Interface web** para configuração e acompanhamento
-- **Contadores** persistidos na flash (total, desde a troca do refil e por dia)
-- **Histórico diário** com download em CSV
+- **Contadores** persistidos na flash (total, desde a troca do refil, refis usados e por dia)
+- **Histórico diário** com download em CSV (disparos e trocas de refil por dia)
 - **Sem pilhas**: as baterias originais foram removidas e todo o conjunto é
   alimentado por um carregador de celular (USB 5 V) ligado à tomada, reduzindo o
   consumo de pilhas e a geração de lixo eletrônico
@@ -40,7 +40,8 @@ Toda a configuração é feita por uma página servida pelo próprio ESP, acess�
 `http://aromatizador.local`. Por ela dá para disparar manualmente, registrar a
 troca do refil, baixar o histórico em CSV e ajustar intervalo, horário permitido,
 dias da semana, feriados e datas bloqueadas. O topo mostra data/hora, o status
-(liberado ou bloqueado), o próximo disparo e os contadores (hoje, refil e total).
+(liberado ou bloqueado), o próximo disparo e os contadores (hoje, neste refil, total
+e refis usados).
 
 <p align="center">
   <img src="imagens/interface-web.png" width="320" alt="Tela de configuração do aromatizador em aromatizador.local"/>
@@ -49,19 +50,18 @@ dias da semana, feriados e datas bloqueadas. O topo mostra data/hora, o status
 ### Campos da tela
 
 **Status (topo):** data, hora e dia da semana; indicação de `Liberado` ou
-bloqueado; tempo para o próximo disparo; e os contadores **Hoje**, **Refil**
-(desde a última troca) e **Total**.
+bloqueado; tempo para o próximo disparo; e os contadores **Hoje**, **Neste refil**
+(disparos desde a última troca), **Total** e **Refis usados**.
 
 **Ações:**
 - `Disparar agora`: borrifa imediatamente (funciona mesmo fora do horário ou em dia bloqueado).
-- `Troquei o refil`: zera o contador **Refil**.
-- `Baixar histórico (CSV)`: baixa o histórico diário de disparos.
+- `Troquei o refil`: soma 1 em **Refis usados** e recomeça a contagem de **Neste refil**.
+- `Baixar histórico (CSV)`: baixa o histórico diário com as colunas `data`,
+  `disparos` e `trocas_refil` (quantas vezes o refil foi trocado naquele dia).
+  A última linha é o dia atual, ainda em andamento.
 
-**Disparo** (um ciclo é a soma das três fases do motor):
+**Disparo** (o ciclo do motor é fixo no código: desce 500 ms, pausa 200 ms, sobe 500 ms):
 - `Intervalo (min)`: minutos entre os disparos automáticos.
-- `Desce (ms)`: tempo que o motor desce pressionando a válvula.
-- `Pausa (ms)`: tempo parado com a válvula apertada, antes de inverter.
-- `Volta (ms)`: tempo que o motor leva para voltar ao repouso.
 - `Disparos automáticos`: liga ou desliga o ciclo automático (o botão físico e o `Disparar agora` continuam funcionando).
 
 **Horário permitido:** `Início` e `Fim` do período em que os disparos automáticos

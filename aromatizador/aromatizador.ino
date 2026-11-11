@@ -7,7 +7,7 @@
 // - Data e hora pela internet (NTP), fuso de Brasilia
 // - Bloqueio por horario, dia da semana e feriados nacionais (calculados no proprio ESP)
 // - Lista de datas extras bloqueadas (feriados municipais, emendas, ferias)
-// - Contadores salvos na memoria flash: total, desde a troca do refil e por dia
+// - Contadores salvos na memoria flash: total, desde a troca do refil, refis usados e por dia
 // - Historico diario para download em CSV
 
 #include <ESP8266WiFi.h>
@@ -19,8 +19,8 @@
 
 // ===== Configure sua rede =====
 
-const char* WIFI_NOME  = "SUA_REDE_WIFI";
-const char* WIFI_SENHA = "SUA_SENHA_WIFI";
+const char* WIFI_NOME  = "ZETTA";
+const char* WIFI_SENHA = "zetta@ufla";
 
 // Fuso de Brasilia (UTC-3, sem horario de verao)
 const char* FUSO = "<-03>3";
@@ -30,12 +30,14 @@ const int IN1   = 0;  // IO0
 const int IN2   = 2;  // IO2
 const int BOTAO = 3;  // RX (RXH no adaptador)
 
+// ===== Tempos do motor (fixos) =====
+const uint16_t T_DESCE = 500;  // ms motor descendo
+const uint16_t T_PAUSA = 200;  // ms parado com a valvula apertada
+const uint16_t T_VOLTA = 500;  // ms motor voltando
+
 // ===== Configuracao (EEPROM) =====
 struct Cfg {
   uint16_t intervaloMin;      // minutos entre disparos
-  uint16_t tDesce;            // ms motor descendo
-  uint16_t tPausa;            // ms parado com a valvula apertada
-  uint16_t tVolta;            // ms motor voltando
   uint16_t inicioMin;         // inicio do horario permitido (minutos desde 00:00)
   uint16_t fimMin;            // fim do horario permitido
   uint8_t  dias;              // dias permitidos: bit0 = domingo ... bit6 = sabado
@@ -46,7 +48,7 @@ struct Cfg {
   uint8_t  marca;             // valida a EEPROM
 } cfg;
 
-const uint8_t MARCA = 0xB2;
+const uint8_t MARCA = 0xB3;  // mude ao alterar a struct Cfg
 
 // ===== Contadores (arquivo na flash, sobrevive a quedas de energia) =====
 struct Cont {
@@ -54,7 +56,15 @@ struct Cont {
   uint32_t refil;  // desde a ultima troca de refil
   uint32_t hoje;   // disparos do dia atual
   uint32_t dia;    // dia atual no formato AAAAMMDD
+  uint32_t refis;       // quantos refis ja foram trocados (soma a cada "Troquei o refil")
+  uint32_t trocasHoje;  // trocas de refil no dia atual (vai para o historico)
 } cont;
+
+// Tamanho do arquivo mais antigo (so os 4 primeiros campos). Arquivos menores que a
+// struct atual sao lidos assim mesmo: os campos novos, no fim, ficam em 0.
+const size_t TAM_CONT_V1 = 4 * sizeof(uint32_t);
+
+const char* CAB_CSV = "data;disparos;trocas_refil\n";
 
 ESP8266WebServer server(80);
 unsigned long ultimo = 0;
@@ -71,9 +81,6 @@ void carregarCfg() {
   if (cfg.marca != MARCA) {
     memset(&cfg, 0, sizeof(cfg));
     cfg.intervaloMin = 15;
-    cfg.tDesce = 500;        // ms descendo (ajuste se recalibrar)
-    cfg.tPausa = 200;
-    cfg.tVolta = 500;        // ms voltando
     cfg.inicioMin = 8 * 60;  // 08:00
     cfg.fimMin = 18 * 60;    // 18:00
     cfg.dias = 0b0111110;    // segunda a sexta
@@ -97,9 +104,44 @@ void carregarCont() {
   memset(&cont, 0, sizeof(cont));
   File f = LittleFS.open("/cont.bin", "r");
   if (f) {
-    if (f.size() == sizeof(cont)) f.read((uint8_t*)&cont, sizeof(cont));
+    size_t n = f.size();
+    if (n >= TAM_CONT_V1 && n <= sizeof(cont) && n % sizeof(uint32_t) == 0)
+      f.read((uint8_t*)&cont, n);
     f.close();
   }
+}
+
+// Converte o historico antigo ("data;disparos") para o formato com a coluna
+// trocas_refil, preenchendo 0 nas linhas antigas. Roda uma vez, no boot.
+void migrarHistorico() {
+  File f = LittleFS.open("/historico.csv", "r");
+  if (!f) return;
+  String cab = f.readStringUntil('\n');
+  cab.trim();
+  if (cab != "data;disparos") { f.close(); return; }
+
+  File g = LittleFS.open("/historico.tmp", "w");
+  if (!g) { f.close(); return; }
+  g.print(CAB_CSV);
+  while (f.available()) {
+    String linha = f.readStringUntil('\n');
+    linha.trim();
+    if (linha.length()) { g.print(linha); g.print(";0\n"); }
+  }
+  f.close();
+  g.close();
+  LittleFS.remove("/historico.csv");
+  LittleFS.rename("/historico.tmp", "/historico.csv");
+}
+
+// Linha do CSV para o dia guardado em cont.dia
+void linhaDia(char* b, size_t tam) {
+  snprintf(b, tam, "%02lu/%02lu/%04lu;%lu;%lu\n",
+           (unsigned long)(cont.dia % 100),
+           (unsigned long)((cont.dia / 100) % 100),
+           (unsigned long)(cont.dia / 10000),
+           (unsigned long)cont.hoje,
+           (unsigned long)cont.trocasHoje);
 }
 
 // ===================================================================
@@ -122,15 +164,14 @@ void verificaDia() {
   if (cont.dia != 0) {
     File f = LittleFS.open("/historico.csv", "a");
     if (f) {
-      if (f.size() == 0) f.print("data;disparos\n");
-      f.printf("%02lu/%02lu/%04lu;%lu\n",
-               (unsigned long)(cont.dia % 100),
-               (unsigned long)((cont.dia / 100) % 100),
-               (unsigned long)(cont.dia / 10000),
-               (unsigned long)cont.hoje);
+      if (f.size() == 0) f.print(CAB_CSV);
+      char b[48];
+      linhaDia(b, sizeof(b));
+      f.print(b);
       f.close();
     }
     cont.hoje = 0;
+    cont.trocasHoje = 0;
   }
   cont.dia = hoje;
   salvarCont();
@@ -236,9 +277,9 @@ void motor(int a, int b) { digitalWrite(IN1, a); digitalWrite(IN2, b); }
 void parar() { motor(HIGH, HIGH); }  // freio (mesmo estado do boot)
 
 void disparar() {
-  motor(HIGH, LOW);  delay(cfg.tDesce);  // desce e aperta a valvula
-  parar();           delay(cfg.tPausa);  // segura / freia antes de inverter
-  motor(LOW, HIGH);  delay(cfg.tVolta);  // volta ao repouso
+  motor(HIGH, LOW);  delay(T_DESCE);  // desce e aperta a valvula
+  parar();           delay(T_PAUSA);  // segura / freia antes de inverter
+  motor(LOW, HIGH);  delay(T_VOLTA);  // volta ao repouso
   parar();
   ultimo = millis();
 
@@ -286,9 +327,6 @@ void pagina() {
 
   if (server.hasArg("salvar")) {
     cfg.intervaloMin = argInt("i", 1, 1440, cfg.intervaloMin);
-    cfg.tDesce = argInt("td", 50, 3000, cfg.tDesce);
-    cfg.tPausa = argInt("tp", 0, 3000, cfg.tPausa);
-    cfg.tVolta = argInt("tv", 50, 3000, cfg.tVolta);
     cfg.inicioMin = lerHM(server.arg("hi"), cfg.inicioMin);
     cfg.fimMin = lerHM(server.arg("hf"), cfg.fimMin);
     cfg.dias = 0;
@@ -305,7 +343,14 @@ void pagina() {
     acao = true;
   }
   if (server.hasArg("agora")) { disparar(); acao = true; }  // manual ignora bloqueios
-  if (server.hasArg("zerarRefil")) { cont.refil = 0; salvarCont(); acao = true; }
+  if (server.hasArg("trocaRefil")) {  // conta mais um refil usado e recomeca a contagem de disparos
+    verificaDia();                    // fecha o dia anterior antes de anotar a troca em hoje
+    cont.refis++;
+    cont.trocasHoje++;
+    cont.refil = 0;
+    salvarCont();
+    acao = true;
+  }
 
   // Depois de uma acao, recarrega a pagina limpa (evita repetir ao atualizar)
   if (acao) {
@@ -352,8 +397,9 @@ void pagina() {
     h += falta / 60; h += F(" min "); h += falta % 60; h += F(" s");
   }
   h += F("<br>Hoje: "); h += cont.hoje;
-  h += F(" | Refil: "); h += cont.refil;
+  h += F(" | Neste refil: "); h += cont.refil;
   h += F(" | Total: "); h += cont.total;
+  h += F("<br>Refis usados: "); h += cont.refis;
   h += F("</div>");
 
   // Diagnostico
@@ -366,15 +412,12 @@ void pagina() {
 
   // Acoes
   h += F("<a class='b v' href='/?agora=1'>Disparar agora</a>"
-         "<a class='b c' href='/?zerarRefil=1' onclick=\"return confirm('Zerar o contador do refil?')\">Troquei o refil</a>"
+         "<a class='b c' href='/?trocaRefil=1' onclick=\"return confirm('Registrar a troca do refil?')\">Troquei o refil</a>"
          "<a class='b c' href='/historico.csv'>Baixar historico (CSV)</a>");
 
   // Configuracao
   h += F("<form><input type=hidden name=salvar value=1><h3>Disparo</h3>");
   campoNum(h, "Intervalo (min)", "i", cfg.intervaloMin);
-  campoNum(h, "Desce (ms)", "td", cfg.tDesce);
-  campoNum(h, "Pausa (ms)", "tp", cfg.tPausa);
-  campoNum(h, "Volta (ms)", "tv", cfg.tVolta);
   caixa(h, "a", cfg.ativo, "Disparos automaticos");
 
   h += F("<h3>Horario permitido</h3><label>Inicio<input type=time name=hi value=");
@@ -401,15 +444,29 @@ void pagina() {
   server.send(200, "text/html", h);
 }
 
+// Envia o historico salvo e, no fim, a linha parcial do dia atual
 void historico() {
-  File f = LittleFS.open("/historico.csv", "r");
-  if (!f) {
-    server.send(200, "text/csv", "data;disparos\n");
-    return;
-  }
+  verificaDia();
   server.sendHeader("Content-Disposition", "attachment; filename=historico.csv");
-  server.streamFile(f, "text/csv");
-  f.close();
+  server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+  server.send(200, "text/csv", "");
+
+  File f = LittleFS.open("/historico.csv", "r");
+  if (f && f.size() > 0) {
+    char buf[256];
+    size_t n;
+    while ((n = f.read((uint8_t*)buf, sizeof(buf))) > 0) server.sendContent(buf, n);
+  } else {
+    server.sendContent(CAB_CSV);
+  }
+  if (f) f.close();
+
+  if (cont.dia != 0) {
+    char b[48];
+    linhaDia(b, sizeof(b));
+    server.sendContent(b);
+  }
+  server.sendContent("");  // encerra a resposta
 }
 
 // ===================================================================
@@ -424,6 +481,7 @@ void setup() {
   carregarCfg();
   LittleFS.begin();
   carregarCont();
+  migrarHistorico();
 
   WiFi.persistent(false);              // nao regrava credenciais na flash a cada boot
   WiFi.mode(WIFI_STA);
