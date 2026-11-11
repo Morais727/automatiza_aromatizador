@@ -29,6 +29,9 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 - **Interface web** para configuração e acompanhamento
 - **Contadores** persistidos na flash (total, desde a troca do refil e por dia)
 - **Histórico diário** com download em CSV
+- **Sem pilhas**: as baterias originais foram removidas e todo o conjunto é
+  alimentado por um carregador de celular (USB 5 V) ligado à tomada, reduzindo o
+  consumo de pilhas e a geração de lixo eletrônico
 - Acesso via `http://aromatizador.local` (ou pelo IP no roteador)
 
 ## Interface web
