@@ -43,6 +43,34 @@ dias da semana, feriados e datas bloqueadas. O topo mostra data/hora, o status
   <img src="imagens/interface-web.png" width="320" alt="Tela de configuração do aromatizador em aromatizador.local"/>
 </p>
 
+### Campos da tela
+
+**Status (topo):** data, hora e dia da semana; indicação de `Liberado` ou
+bloqueado; tempo para o próximo disparo; e os contadores **Hoje**, **Refil**
+(desde a última troca) e **Total**.
+
+**Ações:**
+- `Disparar agora`: borrifa imediatamente (funciona mesmo fora do horário ou em dia bloqueado).
+- `Troquei o refil`: zera o contador **Refil**.
+- `Baixar histórico (CSV)`: baixa o histórico diário de disparos.
+
+**Disparo** (um ciclo é a soma das três fases do motor):
+- `Intervalo (min)`: minutos entre os disparos automáticos.
+- `Desce (ms)`: tempo que o motor desce pressionando a válvula.
+- `Pausa (ms)`: tempo parado com a válvula apertada, antes de inverter.
+- `Volta (ms)`: tempo que o motor leva para voltar ao repouso.
+- `Disparos automáticos`: liga ou desliga o ciclo automático (o botão físico e o `Disparar agora` continuam funcionando).
+
+**Horário permitido:** `Início` e `Fim` do período em que os disparos automáticos
+ocorrem, e os dias da semana ativos (Dom a Sáb).
+
+**Feriados:**
+- `Bloquear feriados nacionais`: não dispara nos feriados nacionais (calculados no próprio ESP).
+- `Bloquear também Carnaval e Corpus Christi`.
+- `Datas extras bloqueadas`: lista separada por vírgula. `DD/MM` bloqueia todo ano; `DD/MM/AAAA` bloqueia só naquele ano.
+
+`Salvar` grava as configurações na memória flash.
+
 ## Lista de componentes (BOM)
 
 | # | Componente | Qtd | Função |
