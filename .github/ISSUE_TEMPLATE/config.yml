@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Dúvida / discussão
+    url: https://github.com/Morais727/automatiza_aromatizador/discussions
+    about: Para perguntas gerais e discussões, use as Discussions (se habilitadas).
