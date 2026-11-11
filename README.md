@@ -31,6 +31,18 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 - **Histórico diário** com download em CSV
 - Acesso via `http://aromatizador.local` (ou pelo IP no roteador)
 
+## Interface web
+
+Toda a configuração é feita por uma página servida pelo próprio ESP, acessível em
+`http://aromatizador.local`. Por ela dá para disparar manualmente, registrar a
+troca do refil, baixar o histórico em CSV e ajustar intervalo, horário permitido,
+dias da semana, feriados e datas bloqueadas. O topo mostra data/hora, o status
+(liberado ou bloqueado), o próximo disparo e os contadores (hoje, refil e total).
+
+<p align="center">
+  <img src="imagens/interface-web.png" width="320" alt="Tela de configuração do aromatizador em aromatizador.local"/>
+</p>
+
 ## Lista de componentes (BOM)
 
 | # | Componente | Qtd | Função |
