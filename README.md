@@ -63,6 +63,9 @@ Saídas `OUT1`/`OUT2` da L298N vão ao motor do aromatizador.
 > Alimentação 5 V (USB) em um trilho comum; `GND` comum a todos os módulos;
 > `ENA` em +5 V habilita a saída da ponte H.
 
+### Variante em protoboard
+![Montagem na protoboard](imagens/protoboard.svg)
+
 ## Compilação (IDE Arduino)
 
 - Placa: **Generic ESP8266 Module**
