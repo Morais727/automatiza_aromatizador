@@ -48,6 +48,27 @@ dias e feriados) e aciona o motor do aromatizador através da ponte H L298N.
 > As quantidades e modelos podem variar conforme a sua montagem. A regulação de
 > tensão para o ESP (3,3 V) é feita pelo adaptador RoboCore, que aceita 5 V.
 
+### Galeria dos componentes
+
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="imagens/componentes/esp01.jpg" width="150"/><br/><b>ESP-01 (ESP8266)</b></td>
+    <td align="center" width="25%"><img src="imagens/componentes/adaptador-robocore.jpg" width="150"/><br/><b>Adaptador RoboCore</b></td>
+    <td align="center" width="25%"><img src="imagens/componentes/l298n.jpg" width="110"/><br/><b>Ponte H L298N</b></td>
+    <td align="center" width="25%"><img src="imagens/componentes/breadboard.jpg" width="150"/><br/><b>Protoboard</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="imagens/componentes/jumpers.jpg" width="150"/><br/><b>Jumpers / fios</b></td>
+    <td align="center"><img src="imagens/componentes/carregador-usb.jpg" width="150"/><br/><b>Fonte USB 5 V</b></td>
+    <td align="center"><img src="imagens/componentes/aromatizador.jpg" width="95"/><br/><b>Aromatizador</b></td>
+    <td align="center"></td>
+  </tr>
+</table>
+
+> Imagens de **ESP-01, L298N, protoboard, jumpers e carregador** são ilustrativas
+> (modelos equivalentes, fontes livres — ver [Créditos](#créditos-das-imagens)).
+> As fotos do **adaptador RoboCore** e do **aromatizador** são do próprio projeto.
+
 ## Ligações (pinagem)
 
 | ESP-01 | Destino |
@@ -83,7 +104,24 @@ no início do sketch. Os valores versionados são apenas placeholders
 Sugestões e melhorias (especialmente na interface web) são bem-vindas via
 _issues_ e _pull requests_. Veja o [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+## Créditos das imagens
+
+As fotos ilustrativas de componentes vêm do Wikimedia Commons e mantêm as
+licenças de seus autores (não são cobertas pela licença MIT deste projeto):
+
+| Imagem | Autor | Licença | Fonte |
+|--------|-------|---------|-------|
+| `esp01.jpg` | Sparkfun Electronics | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:ESP-01.jpg) |
+| `l298n.jpg` (recortada) | Quel.soler | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Dosmotorsl298n.jpg) |
+| `breadboard.jpg` | oomlout | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:400_points_breadboard.jpg) |
+| `jumpers.jpg` | oomlout | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:A_few_Jumper_Wires.jpg) |
+| `carregador-usb.jpg` | Сергей Михель | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Phone_charger_2026.jpg) |
+
+As demais fotos (montagem, visão geral, eletrônica, adaptador RoboCore e
+aromatizador) são de autoria do projeto. © 2026 Marcos Morais.
+
 ## Licença
 
-Distribuído sob a licença **MIT** — veja [`LICENSE`](LICENSE).
-© 2026 Marcos Morais.
+Código distribuído sob a licença **MIT** — veja [`LICENSE`](LICENSE).
+© 2026 Marcos Morais. (As imagens de terceiros mantêm suas próprias licenças,
+conforme a tabela acima.)
